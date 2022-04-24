@@ -10,7 +10,7 @@
 	<body>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<script>
-			// Our Javascript will go here.
+			//Our Javascript will go here.
 			const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 //Scene
@@ -21,18 +21,52 @@ document.body.appendChild( renderer.domElement );
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00} );
 const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
+//scene.add( cube );
 camera.position.z = 5;
 //animate/ rendering the cube
+
+
+const geometryTwo = new THREE.SphereGeometry( 1,32,16 );
+const materialTwo= new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const sphere = new THREE.Mesh( geometryTwo, materialTwo );
+
+camera.position.z = 5;
+camera.position.x = 2
+
+
+
+const geometryThree = new THREE.SphereGeometry( 1,0);
+const materialThree= new THREE.MeshBasicMaterial( { color:   0xFF0000 } );
+const octahedron = new THREE.Mesh( geometryThree, materialThree );
+scene.add( cube,sphere,octahedron );
+camera.position.z = 5;
+camera.position.x = 2
+
+const geometryFour = new THREE.TorusGeometry( 10, 3, 16, 100 );
+const materialFour = new THREE.MeshBasicMaterial( { color: 0x0000FF } );
+const torus = new THREE.Mesh( geometry, material );
+scene.add( torus );
+
+camera.position.z = 5;
+camera.position.x = 2
+
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
 	
 cube.rotation.x += 0.01;	
 cube.rotation.y += 0.01;
+sphere.position.x = 4;
+sphere.rotation.x += 0.01
+sphere.rotation.y += 0.01
+octahedron.position.x = -4
+octahedron.rotation.x += 0.01
+octahedron.rotation.y += 0.01
+torus.position.x = 1
+torus.rotation.x += 0.01
+torus.rotation.y += 0.01
 }
 animate();
 		</script>
 	</body>
-</html>
+</html> 
