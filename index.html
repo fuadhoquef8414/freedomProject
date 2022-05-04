@@ -12,7 +12,7 @@
 		<script>
 			//Our Javascript will go here.
 			const scene = new THREE.Scene();
-// <<<<<<< HEAD
+
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 //Scene
 const renderer = new THREE.WebGLRenderer();
@@ -48,25 +48,51 @@ const materialFour = new THREE.MeshBasicMaterial( { color: 0x0000FF } );
 const torus = new THREE.Mesh( geometry, material );
 scene.add( torus );
 
-camera.position.z = 5;
-camera.position.x = 2
+
+const loader = new GLTFLoader();
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath( '/examples/js/libs/draco/' );
+loader.setDRACOLoader( dracoLoader );
+
+
+camera.position.z = 3;
+camera.position.x = 3
+
+
+loader.load(
+	// resource URL
+	'shoemodel.gltf',
+	// called when the resource is loaded
+function ( gltf ) {
+
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	
 
 function animate() {
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
-	
+requestAnimationFrame( animate );
+renderer.render( scene, camera );
+cube.position.y = 0.5
 cube.rotation.x += 0.01;	
 cube.rotation.y += 0.01;
-sphere.position.x = 4;
+sphere.position.x = 0;
 sphere.rotation.x += 0.01
 sphere.rotation.y += 0.01
-octahedron.position.x = -4
+octahedron.position.x = -0.5
 octahedron.rotation.x += 0.01
 octahedron.rotation.y += 0.01
 torus.position.x = 1
 torus.rotation.x += 0.01
 torus.rotation.y += 0.01
-}
+})
 animate();
 
 		</script>
