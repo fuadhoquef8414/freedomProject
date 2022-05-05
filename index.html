@@ -49,14 +49,15 @@ const torus = new THREE.Mesh( geometry, material );
 scene.add( torus );
 
 
-const loader = new GLTFLoader();
+const loader = new THREE
+.GLTFLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath( '/examples/js/libs/draco/' );
 loader.setDRACOLoader( dracoLoader );
 
 
-camera.position.z = 3;
-camera.position.x = 3
+camera.position.z = 2;
+camera.position.x = 2
 
 
 loader.load(
