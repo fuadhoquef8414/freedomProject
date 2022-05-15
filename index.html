@@ -16,81 +16,64 @@
 			//Our Javascript will go here.
 			// import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.140.0-GUHzVjhk6N710lVNqW8H/mode=imports,min/optimized/three.js';
 			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			//Scene
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			//Cube
+			document.body.appendChild( renderer.domElement );
+			const loader = new THREE.GLTFLoader();
+			const dracoLoader = new THREE.DRACOLoader();
+			dracoLoader.setDecoderPath( '/examples/js/libs/draco/' );
+			loader.setDRACOLoader( dracoLoader );
+			function init() {
+				
+			}
+			
+			camera.position.z = 1;
+			camera.position.x = 1;
+			camera.position.y = 1
 		
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-//Scene
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-//Cube
-document.body.appendChild( renderer.domElement );
-// const geometry = new THREE.BoxGeometry();
-// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00} );
-// const cube = new THREE.Mesh( geometry, material );
-// //scene.add( cube );
-// camera.position.z = 5;
-// //animate/ rendering the cube
+			
+			var model
+			loader.load('Shoe Model.gltf',function ( gltf ) {
+				model = gltf.scene
+				scene.add(model);
+				console.log(gltf)
+				const root = gltf.scene
+				root.scale.set(5,5,5)
+				gltf.animations; // Array<THREE.AnimationClip>
+				gltf.scene; // THREE.Group
+				gltf.scenes; // Array<THREE.Group>
+				gltf.cameras; // Array<THREE.Camera>
+				gltf.asset; // Object
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
+            camera.position.set(0,0,0);
+            
+		
+			},
+			// called while loading is progressing
+		
+			
+			function animate() {
+				requestAnimationFrame( animate );
+				renderer.render( scene, camera );
+				
+			 if (model) {
+			 	model.position.x = 1
+			 	model.position.y = 0
+			 	model.position.z = -1;
+			    model.rotation.y += 0.01;
+			}
+			
+			
+			}
+			)
+			
+			const light = new THREE.DirectionalLight(0xffffff,1 )
+			light.position.set(2,2,5)
+			scene.add(light)
 
-
-// const geometryTwo = new THREE.SphereGeometry( 1,32,16 );
-// const materialTwo= new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-// const sphere = new THREE.Mesh( geometryTwo, materialTwo );
-
-// camera.position.z = 5;
-// camera.position.x = 2
-
-
-
-// const geometryThree = new THREE.SphereGeometry( 1,0);
-// const materialThree= new THREE.MeshBasicMaterial( { color:   0xFF0000 } );
-// const octahedron = new THREE.Mesh( geometryThree, materialThree );
-// scene.add( cube,sphere,octahedron );
-// camera.position.z = 5;
-// camera.position.x = 2
-
-// const geometryFour = new THREE.TorusGeometry( 10, 3, 16, 100 );
-// const materialFour = new THREE.MeshBasicMaterial( { color: 0x0000FF } );
-// const torus = new THREE.Mesh( geometry, material );
-// scene.add( torus );
-
-
-const loader = new THREE.GLTFLoader();
-const dracoLoader = new THREE.DRACOLoader();
-dracoLoader.setDecoderPath( '/examples/js/libs/draco/' );
-loader.setDRACOLoader( dracoLoader );
-
-
-camera.position.z = 2;
-camera.position.x = 2
-
-
-loader.load('Shoe Model.gltf',function ( gltf ) {
-
-		scene.add( gltf.scene );
-		console.log(gltf)
-		const root = gltf.scene
-		root.scale.set(5,5,5)
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Group
-		gltf.scenes; // Array<THREE.Group>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-
-	},
-	// called while loading is progressing
-
-
-function animate() {
-
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
-}
-)
-
-const light = new THREE.DirectionalLight(0xffffff,1 )
-light.position.set(2,2,5)
-scene.add(light)
-	loader.rotation.x += 0.01;
-	loader.rotation.y += 0.01;
 
 
 		</script>
